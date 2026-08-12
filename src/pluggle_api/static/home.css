@@ -1,0 +1,108 @@
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+.code {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+.header {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+    background-color: lightgray;
+    border: 2px solid black;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+#header-section {
+    grid-column: 1/13;
+    grid-row: 2/7;
+    display: flex;
+    align-items: flex-end;
+}
+
+#header-logo {
+    width: 4rem;
+    height: 4rem;
+    object-fit: contain;
+}
+
+#header-text {
+    font-size: 3.5rem;
+    font-family: 'Aldrich', sans-serif;
+    margin: 0;
+    line-height: 1;
+    position: relative;
+    top: 6px;
+    left: -7px;
+}
+
+#navbar {
+    grid-column: 1/13;
+    grid-row: 10/13;
+    border-top: 1px solid black;
+    background-color: beige;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-left: 1rem;
+
+    #header-text {
+        font-family: 'Aldrich', sans-serif;
+        /* font-family: 'Quantico', sans-serif; */
+        /* font-family: 'Tektur', sans-serif; */
+        /* font-family: 'Science Gothic', sans-serif; */
+        /* font-family: 'Geo', sans-serif; */
+    }
+}
+
+
+.main {
+    display: grid;
+    grid-template-columns: 2fr 8fr 2fr;
+    grid-template-areas:
+        "leftdiv maindiv rightdiv";
+}
+
+#leftdiv {
+    grid-area: leftdiv;
+    display: flex;
+    gap: 10px;
+    border: 1px solid black;
+}
+
+#rightdiv {
+    grid-area: rightdiv;
+    display: flex;
+    gap: 10px;
+    border: 1px solid black;
+}
+
+#maindiv {
+    grid-area: maindiv;
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-areas: "input" "output";
+    gap: 10px 10px;
+    border: 1px solid black;
+}
+
+#input-section {
+    grid-area: input;
+    border: 1px solid black;
+    display: flex
+}
+
+#output-section {
+    grid-area: output;
+    border: 1px solid black;
+    display: flex;
+}

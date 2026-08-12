@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml"
+          href="{{ url_for('static', path = '/logo.svg') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;700&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Aldrich&family=Quantico:wght@400;700&family=Tektur:wght@400;700&family=Science+Gothic:wght@400;700&family=Geo&display=swap"
+          rel="stylesheet">
+
+
+    <title>Pluggle API</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/home.css') }}">
+</head>
+<body>
+<header class="header">
+    <section id="header-section">
+        <img id="header-logo" src="/static/logo.svg" alt="Pluggle Logo">
+        <h1 id="header-text">luggle</h1>
+    </section>
+    <nav id="navbar">
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/strategies">Strategies</a>
+            <a href="/how-it-works">How it works</a>
+            <a href="/about">About</a>
+        </div>
+    </nav>
+</header>
+
+
+<main class="main">
+    <div id="leftdiv">Leftbox</div>
+    <div id="rightdiv">Rightbox</div>
+    <div id="maindiv">
+        <section id="input-section">
+            <form id="input-form" method="post" action="/run">
+                <div id="input-strategy">
+                    <label for="strategy">Strategy</label>
+                    <select name="strategy" id="strategy">
+                        {% for s in strategies %}
+                        <option value="{{ s }}" {% if loop.first %}selected{% endif %}>
+                            {{ s }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div id="input-source">
+                    <label for="source_url">Source URL</label>
+                    <input type="text" name="source_url" id="source_url"
+                           placeholder="https://example.com/data.csv">
+                </div>
+                <button id="input-run-button" type="submit">Run</button>
+            </form>
+        </section>
+        <section id="output-section">
+            <div id="output-report">
+                <p>
+                    Source: ...
+                    Strategy: ...
+                    Status: ...
+                </p>
+            </div>
+            <div id="output-download">
+                <p>Output file:</p>
+                <a id=output-link href="#" download>Download Output</a>
+
+            </div>
+        </section>
+    </div>
+
+</main>
+
+
+<footer class="footer"></footer>
+</body>
+</html>

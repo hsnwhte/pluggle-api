@@ -16,9 +16,12 @@ build/
 dist/
 *.egg-info/
 .eggs/
+package.json
+node_modules/
 
-# PyCharm
+# IDE
 .idea/
+.vscode/
 
 # Environment / secrets
 .env
@@ -35,6 +38,7 @@ htmlcov/
 # Data
 data/*
 !data/.gitkeep
+pgdata/
 
 # OS
 .DS_Store
