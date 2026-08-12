@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pluggle-api"
+version = "0.1.0"
+description = "REST API layer for Pluggle — run ETL pipelines via HTTP, powered by FastAPI."
+readme = "README.md"
+requires-python = ">=3.14"
+license = { text = "MIT"}
+authors = [
+    { name = "hsnwhte" }
+]
+
+dependencies = [
+    "pluggle>=0.9.0",
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.30",
+    "pydantic>=2.0",
+    "httpx>=0.28",
+    "jinja2>=3.1"
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.urls]
+Homepage = "https://pluggle.org"
+Repository = "https://github.com/hsnwhte/pluggle-api"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["B008", "E501"]
