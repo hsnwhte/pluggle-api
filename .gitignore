@@ -16,7 +16,7 @@ build/
 dist/
 *.egg-info/
 .eggs/
-package.json
+package-lock.json
 node_modules/
 
 # IDE
@@ -44,5 +44,6 @@ pgdata/
 .DS_Store
 Thumbs.db
 
-# Docker
+# Other
 *.log
+output.css

@@ -1,56 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/svg+xml"
-          href="{{ url_for('static', path = '/logo.svg') }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Aldrich&display=swap"
-          rel="stylesheet">
-    <title class="font-header">Pluggle</title>
-    <link rel="stylesheet" href="{{ url_for('static', path='/home.css') }}">
-</head>
-<body>
-<header class="font-header grid grid-cols-12 grid-rows-8 bg-gray-200 border-2 border-black mb-4 gap-4">
-    <section id="header-section"
-             class="col-span-12 row-start-1 row-end-6 flex items-end gap-2.5">
-        <img id="header-logo" class="w-16 h-16 object-contain" src="/static/logo.svg"
-             alt="Pluggle Logo">
-        <h1 id="header-text"
-            class="font-header text-6xl m-0 leading-none relative top-[6px] right-5">
-            luggle</h1>
-    </section>
-    <nav id="navbar"
-         class="col-span-12 row-start-7 row-end-9 flex items-center border-t border-black bg-[#f5f5dc]">
-        <div class="nav-links flex gap-6 ml-4">
-            <a href="/">Home</a>
-            <a href="/strategies">Strategies</a>
-            <a href="/how-it-works">How it works</a>
-            <a href="/about">About</a>
-        </div>
-    </nav>
-</header>
+{% extends "base.html" %}
 
-<main class="font-main grid grid-cols-12 grid-rows-12 gap-4">
-    <div id="main-left"
-         class="col-start-1 col-end-3 flex items-center justify-center bg-gray-50 text-gray-400 text-sm">
-        <!-- potential ad space-->ads here
-    </div>
-
-
-    <div id="main-center"
-         class="col-start-3 col-end-11 flex flex-col gap-6 p-6">
-        
-    </div>
-
-    <div id="main-right"
-         class="col-start-11 col-end-13 flex items-center justify-center bg-gray-50  text-gray-400 text-sm">
-        <!-- potential ad space-->ads here
-    </div>
-</main>
-
-
-<footer class="footer"></footer>
-</body>
-</html>
+{% block content %}
+        <section id="how-it-works-section" class="border rounded-lg p-6 bg-white">
+            <h1>How it works</h1>
+            <p>This explains how it works.</p>
+        </section>
+{% endblock %}

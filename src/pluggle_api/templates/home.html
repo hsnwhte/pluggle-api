@@ -1,94 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/svg+xml"
-          href="{{ url_for('static', path = '/logo.svg') }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Aldrich&display=swap"
-          rel="stylesheet">
-    <title class="font-header">Pluggle</title>
-    <link rel="stylesheet" href="{{ url_for('static', path='/home.css') }}">
-</head>
-<body>
-<header class="font-header grid grid-cols-12 grid-rows-8 bg-gray-200 border-2 border-black mb-4 gap-4">
-    <section id="header-section"
-             class="col-span-12 row-start-1 row-end-6 flex items-end gap-2.5">
-        <img id="header-logo" class="w-16 h-16 object-contain" src="/static/logo.svg"
-             alt="Pluggle Logo">
-        <h1 id="header-text"
-            class="font-header text-6xl m-0 leading-none relative top-[6px] right-5">
-            luggle</h1>
+{% extends "base.html" %}
+
+{% block content %}
+    <section id="input-section" class="border rounded-lg p-6 bg-white">
+        <form id="input-form" method="post" action="/run"
+              class="flex flex-col gap-4">
+            <div id="strategy-picker" class="flex flex-col gap-1">
+                <label for="strategy-input" class="text-sm font-medium text-gray-700">Transform Strategy</label>
+                <input type="text" id="strategy-input" autocomplete="off"
+                       placeholder="Search strategies..."
+                       class="w-full rounded border px-3 py-2 focus:outline-none focus:ring-1 focus:ring-sky-400">
+                <input type="hidden" name="strategy" id="strategy-value">
+
+
+            </div>
+            <div id="input-source" class="flex flex-col gap-1">
+                <label for="source_url" class="text-sm font-medium text-gray-700">Source
+                    URL</label>
+                <input type="text" name="source_url" id="source_url"
+                       placeholder="https://example.com/data.csv"
+                       class="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-sky-400">
+            </div>
+            <button id="input-transform-button" type="submit"
+                    class="bg-sky-500 text-white font-medium rounded-md px-4 py-2 hover:opacity-80 self-start">
+                Transform
+            </button>
+        </form>
     </section>
-    <nav id="navbar"
-         class="col-span-12 row-start-7 row-end-9 flex items-center border-t border-black bg-[#f5f5dc]">
-        <div class="nav-links flex gap-6 ml-4">
-            <a href="/">Home</a>
-            <a href="/strategies">Strategies</a>
-            <a href="/how-it-works">How it works</a>
-            <a href="/about">About</a>
+    <section id="output-section"
+             class="border rounded-lg p-6 bg-white flex flex-col gap-4">
+        <div id="output-report">
+            <p class="text-sm text-gray-700">Report</p>
         </div>
-    </nav>
-</header>
+        <div id="output-download">
+            <p class="text-sm text-gray-500 mb-1">Output file:</p>
+            <a id="output-link" href="#" download
+               class="text-sky-600 font-medium hover:underline">Download</a>
+        </div>
+    </section>
+{% endblock %}
 
+{% block scripts %}
+    <script src="{{ url_for('static', path='js/home.js') }}"></script>
+{% endblock %}
 
-<main class="font-main grid grid-cols-12 grid-rows-12 gap-4">
-    <div id="main-left"
-         class="col-start-1 col-end-3 flex items-center justify-center bg-gray-50 text-gray-400 text-sm">
-        <!-- potential ad space-->ads here
-    </div>
-
-
-    <div id="main-center"
-         class="col-start-3 col-end-11 flex flex-col gap-6 p-6">
-        <section id="input-section" class="border rounded-lg p-6 bg-white">
-            <form id="input-form" method="post" action="/run"
-                  class="flex flex-col gap-4">
-                <div id="input-strategy" class="flex flex-col gap-1">
-                    <label for="strategy" class="text-sm font-medium text-gray-700">Strategy</label>
-                    <select name="strategy" id="strategy"
-                            class="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-sky-400">
-                        {% for s in strategies %}
-                        <option value="{{ s }}" {% if loop.first %}selected{% endif %}>
-                            {{ s }}
-                        </option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div id="input-source" class="flex flex-col gap-1">
-                    <label for="source_url" class="text-sm font-medium text-gray-700">Source
-                        URL</label>
-                    <input type="text" name="source_url" id="source_url"
-                           placeholder="https://example.com/data.csv"
-                           class="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-sky-400">
-                </div>
-                <button id="input-transform-button" type="submit"
-                        class="bg-sky-500 text-white font-medium rounded-md px-4 py-2 hover:opacity-80 self-start">
-                    Transform
-                </button>
-            </form>
-        </section>
-        <section id="output-section"
-                 class="border rounded-lg p-6 bg-white flex flex-col gap-4">
-            <div id="output-report">
-                <p class="text-sm text-gray-700">Report</p>
-            </div>
-            <div id="output-download">
-                <p class="text-sm text-gray-500 mb-1">Output file:</p>
-                <a id="output-link" href="#" download
-                   class="text-sky-600 font-medium hover:underline">Download</a>
-            </div>
-        </section>
-    </div>
-
-    <div id="main-right"
-         class="col-start-11 col-end-13 flex items-center justify-center bg-gray-50  text-gray-400 text-sm">
-        <!-- potential ad space-->ads here
-    </div>
-</main>
-
-
-<footer class="footer"></footer>
-</body>
-</html>

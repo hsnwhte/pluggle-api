@@ -3,6 +3,7 @@ from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 
 from pluggle_api.settings import STATIC_DIR, TEMPLATES_DIR
+from pluggle.interfaces.api.api import list_available_strategies
 
 router = APIRouter()
 
@@ -16,7 +17,9 @@ def root():
 
 @router.get("/home", response_class=HTMLResponse)
 def home(request: Request):
-    return templates.TemplateResponse(request=request, name="home.html", context={})
+    return templates.TemplateResponse(
+        request=request, name="home.html", context={"strategies": list_available_strategies()}
+    )
 
 
 @router.get("/how-it-works", response_class=HTMLResponse)
