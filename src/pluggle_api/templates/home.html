@@ -5,25 +5,64 @@
         <form id="input-form" method="post" action="/run"
               class="flex flex-col gap-4">
             <div id="strategy-picker" class="flex flex-col gap-1">
-                <label for="strategy-input" class="text-sm font-medium text-gray-700">Transform Strategy</label>
-                <input type="text" id="strategy-input" autocomplete="off"
-                       placeholder="Search strategies..."
-                       class="w-full rounded border px-3 py-2 focus:outline-none focus:ring-1 focus:ring-sky-400">
-                <input type="hidden" name="strategy" id="strategy-value">
-
-
+                <label for="strategy-search" class="text-sm font-medium text-gray-700">Transform
+                    Strategy</label>
+                <div id="strategy-combobox" class="relative">
+                    <input type="text" id="strategy-search" autocomplete="off"
+                           placeholder="Search strategies..."
+                           class="border border-gray-300 w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-1 focus:ring-sky-400">
+                    <ul id="strategy-list"
+                        class="hidden absolute top-full left-0 w-full max-h-40 overflow-y-auto bg-white border border-gray-300 rounded-md shadow-md z-10 mt-2">
+                        {% for s in strategies %}
+                            <li data-value="{{ s }}"
+                                class="text-gray-500 hover:bg-gray-100 px-3 px-2 cursor-pointer">{{ s }}</li>
+                        {% endfor %}
+                    </ul>
+                    <input type="hidden" name="strategy" id="strategy-value">
+                </div>
             </div>
+
             <div id="input-source" class="flex flex-col gap-1">
-                <label for="source_url" class="text-sm font-medium text-gray-700">Source
+                <label for="source-url" class="text-sm font-medium text-gray-700">Source
                     URL</label>
-                <input type="text" name="source_url" id="source_url"
-                       placeholder="https://example.com/data.csv"
-                       class="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-sky-400">
+                <div class="relative">
+                    <input type="text" name="source_url" id="source-url"
+                           placeholder="https://example.com/data.csv"
+                           class="border border-gray-300 w-full rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-sky-400 mb-3">
+                </div>
+
+                <label for="source-dropzone" class="text-sm font-medium text-gray-700">Source
+                    File</label>
+                <div id="source-dropzone"
+                     class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center text-gray-500 hover:border-sky-400 transition-colors cursor-pointer mb-2">
+                    <p id="source-dropzone-text">Drag & drop a file here, or click to
+                        select</p>
+                    <input type="file" id="source-file" name="source_file"
+                           class="hidden">
+                </div>
             </div>
-            <button id="input-transform-button" type="submit"
-                    class="bg-sky-500 text-white font-medium rounded-md px-4 py-2 hover:opacity-80 self-start">
-                Transform
-            </button>
+            <div class="flex flex-col gap-1">
+                <label for="target_format" class="text-sm font-medium text-gray-700">Target
+                    Format</label>
+                <select name="target_format" id="target_format"
+                        class="border border-gray-300 w-full rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-sky-400">
+                    {% for f in target_formats %}
+                        <option value="{{ f }}">{{ f|upper }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="flex gap-3">
+                <button id="input-transform-button" type="submit"
+                        class="bg-sky-500 text-white font-medium rounded-md px-4 py-2 hover:opacity-80 self-start cursor-pointer">
+                    Transform
+                </button>
+                <button id="input-clear-button" type="reset"
+                        class="bg-orange-500 text-white font-medium rounded-md px-4 py-2 hover:opacity-80 self-start cursor-pointer">
+                    Clear
+                </button>
+
+            </div>
         </form>
     </section>
     <section id="output-section"
@@ -40,6 +79,6 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="{{ url_for('static', path='js/home.js') }}"></script>
+    <script src="{{ url_for('static', path='home.js') }}"></script>
 {% endblock %}
 

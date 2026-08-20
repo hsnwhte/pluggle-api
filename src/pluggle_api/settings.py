@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 from pydantic import computed_field
@@ -10,6 +11,15 @@ ENV_FILE = RUNTIME_ROOT / ".env"
 
 STATIC_DIR = PACKAGE_ROOT / "static"
 TEMPLATES_DIR = PACKAGE_ROOT / "templates"
+
+OUTPUTS_DIR = RUNTIME_ROOT / "data" / "outputs"
+OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
+
+LOGS_DIR = RUNTIME_ROOT / "data" / "logs"
+LOGS_DIR.mkdir(parents=True, exist_ok=True)
+
+STRATEGIES_DIR = RUNTIME_ROOT / "data" / "strategies"
+STRATEGIES_DIR.mkdir(parents=True, exist_ok=True)
 
 
 class Settings(BaseSettings):
@@ -33,3 +43,10 @@ class Settings(BaseSettings):
             f"postgresql://{self.postgres_user}:{self.postgres_password}"
             f"@{self.postgres_host}:{self.postgres_port}/{self.postgres_db}"
         )
+
+
+settings = Settings()
+
+os.environ["PLUGGLE_STORE_ADDRESS"] = settings.database_url
+os.environ["PLUGGLE_STRATEGIES_DIR"] = str(STRATEGIES_DIR)
+os.environ["LOG_DIR"] = str(LOGS_DIR)

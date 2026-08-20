@@ -1,37 +1,74 @@
-const strategies = JSON.parse(document.getElementById("strategy-data").textContent);
+const searchInput = document.getElementById("strategy-search");
+const strategyList = document.getElementById("strategy-list")
+const strategies = document.querySelectorAll("#strategy-list li");
+const strategyValue = document.getElementById("strategy-value")
+const strategyCombobox = document.getElementById("strategy-combobox")
+const sourceDropzone = document.getElementById("source-dropzone")
+const fileInput = document.getElementById("source-file")
+const sourceDropzoneText = document.getElementById("source-dropzone-text")
+const form = document.getElementById("input-form")
 
-const input = document.getElementById("strategy-input");
-const hidden = document.getElementById("strategy-value");
-const list = document.getElementById("strategy-list");
-
-function render(items) {
-    list.innerHTML = "";
-    if (items.length === 0) {
-        list.classList.add("hidden");
-        return;
-    }
-    for (const name of items) {
-        const li = document.createElement("li");
-        li.textContent = name;
-        li.className = "cursor-pointer px-3 py-2 hover:bg-slate-100";
-        li.addEventListener("click", () => {
-            input.value = name;
-            hidden.value = name;
-            list.classList.add("hidden");
-        });
-        list.appendChild(li);
-    }
-    list.classList.remove("hidden");
-}
-
-input.addEventListener("input", () => {
-    hidden.value = "";                       // seçim bozuldu
-    const q = input.value.trim().toLowerCase();
-    render(strategies.filter(s => s.toLowerCase().includes(q)));
+document.addEventListener('click', (e) => {
+    const clickedElement = e.target;
 });
 
-input.addEventListener("focus", () => render(strategies));
+document.addEventListener('click', (e) => {
+    if (!strategyCombobox.contains(e.target)) {
+        strategyList.classList.add('hidden');
+    }
+});
 
-document.addEventListener("click", (e) => {
-    if (!e.target.closest("#strategy-picker")) list.classList.add("hidden");
+searchInput.addEventListener('focus', () => {
+    strategyList.classList.remove('hidden');
+});
+
+searchInput.addEventListener('input', (e) => {
+    const query = searchInput.value;
+    strategies.forEach((strategy) => {
+        const text = strategy.textContent;
+        const matches = text.toLowerCase().includes(query.toLowerCase());
+        if (matches) {
+            strategy.classList.remove('hidden');
+        } else {
+            strategy.classList.add('hidden');
+        }
+    });
+});
+
+strategies.forEach((strategy) => {
+    strategy.addEventListener('click', () => {
+        searchInput.value = strategy.textContent;
+        strategyValue.value = strategy.dataset.value;
+    });
+});
+
+
+sourceDropzone.addEventListener('click', (e) => {
+    fileInput.click();
+});
+
+fileInput.addEventListener('change', () => {
+    if (fileInput.files.length === 1) {
+        sourceDropzoneText.textContent = fileInput.files[0].name;
+    }
+});
+
+sourceDropzone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    sourceDropzone.classList.add('border-sky-500');
+});
+
+sourceDropzone.addEventListener('dragleave', (e) => {
+    sourceDropzone.classList.remove('border-sky-500');
+});
+
+sourceDropzone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    sourceDropzone.classList.remove('border-sky-500');
+    fileInput.files = e.dataTransfer.files;
+    sourceDropzoneText.textContent = fileInput.files[0].name;
+});
+
+form.addEventListener('reset', () => {
+    sourceDropzoneText.textContent = "Drag & drop a file here, or click to select"
 });
